@@ -8,28 +8,30 @@ using static UnityEngine.Rendering.DebugUI.MessageBox;
 
 public class Player : MonoBehaviour
 {
-    public float rangeValue;
-    public Transform attackPoint;
-    public GameObject bullet;
+    public float rangeValue; //set the range value of the player 
+    public Transform attackPoint; // this where the bullet will get instaciated
+    public GameObject bullet; //bullet prefab
 
-    public Material[] playerColorMat;
+    public Material[] playerColorMat; //set the color material for the player
     private Renderer playerRenderer;
 
     public float fireRate;
     private float nextFireTime;
 
-    public float rotationSpeed;
-    private int currentMaterialIndex;
+    public float rotationSpeed; //add rotation speed so player wont snap to the nearest enemy instead rotate it
+    private int currentMaterialIndex; 
 
-    private enemySpawner spawner;
-    public GameObject gameOverScreen;
+    private enemySpawner spawner; //get the enemySpawner Script
+    public GameObject gameOverScreen; //get the gameOver screen 
 
     private UIscript uiscript;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerRenderer = GetComponent<Renderer>();
+        //get player renderer for the player
+        playerRenderer = GetComponent<Renderer>(); 
+        //find the object with script enemySpawener and UIscript
         spawner = FindObjectOfType<enemySpawner>();
         uiscript = FindObjectOfType<UIscript>();
     }
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //set the nearestEnemy to null
         Transform nearestEnemy = null;
         float nearestDistance = Mathf.Infinity;
 
@@ -73,7 +76,7 @@ public class Player : MonoBehaviour
             transform.DORotate(targetRotation.eulerAngles, rotationSpeed);
         }
 
-
+        
         if (Time.time >= nextFireTime)
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
@@ -100,14 +103,17 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             Debug.Log("destroy");
 
+            //if player collide with the player stop spawning
             spawner.StopSpawning();
+            //showw the GameOverSCreen
             setGameOverScreen();
 
+            //find and collect object with tag enemies 
             GameObject[] remainingEnemies = GameObject.FindGameObjectsWithTag("Enemy");
 
             // Destroy each remaining enemy
             foreach (GameObject enemy in remainingEnemies)
-            {
+            {       
                 Destroy(enemy);
             }
         }
@@ -115,6 +121,7 @@ public class Player : MonoBehaviour
 
     public void setGameOverScreen()
     {
+        //call Show UI function in UI script
         uiscript.ShowUI();
     }
 

@@ -24,4 +24,14 @@ public class buttonManager : MonoBehaviour
         uiscript.CloseUI();
         scoremanager.ResetScore();
     }
+
+    public void goToplayGame()
+    {
+        uiscript.closeMenuUI();
+    }
+
+    public void goToPlayMenu()
+    {
+        uiscript.openMenuUI();
+    }
 }

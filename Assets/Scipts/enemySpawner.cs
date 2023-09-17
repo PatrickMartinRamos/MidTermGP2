@@ -8,12 +8,12 @@ public class enemySpawner : MonoBehaviour
     public GameObject enemyPrefab;
     public float spawnInterval;
 
-    public bool shouldSpawn = true;
+    private bool shouldSpawn = false;
     private Coroutine spawnCoroutine;
     // Start is called before the first frame update
     void Start()
     {
-        spawnCoroutine = StartCoroutine(SpawnEnemies());
+         spawnCoroutine = StartCoroutine(SpawnEnemies());
     }
 
     // Update is called once per frame
@@ -33,13 +33,13 @@ public class enemySpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
         }
     }
-    //this is getting called in PlayerScript
+    //this is getting called in PlayerScript to stop spawning whenever an enemy collided with the player
     public void StopSpawning()
     {
         shouldSpawn = false;
         Debug.Log("stop spawning");   
     }
-
+    //this is getting called in button script whenever the player choose the "YES" button make the spawner start again
     public void RestartSpawning()
     {
         shouldSpawn = true;

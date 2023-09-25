@@ -12,14 +12,10 @@ public class Player : MonoBehaviour
     public Transform attackPoint; // this where the bullet will get instaciated
     public GameObject bullet; //bullet prefab
 
-    public Material[] playerColorMat; //set the color material for the player
-    private Renderer playerRenderer;
-
     public float fireRate;
     private float nextFireTime;
 
     public float rotationSpeed; //add rotation speed so player wont snap to the nearest enemy instead rotate it
-    private int currentMaterialIndex; 
 
     private enemySpawner spawner; //get the enemySpawner Script
     public GameObject gameOverScreen; //get the gameOver screen 
@@ -29,8 +25,6 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //get player renderer for the player
-        playerRenderer = GetComponent<Renderer>(); 
         //find the object with script enemySpawener and UIscript
         spawner = FindObjectOfType<enemySpawner>();
         uiscript = FindObjectOfType<UIscript>();
@@ -85,15 +79,6 @@ public class Player : MonoBehaviour
                 // Set the next allowed fire time based on the fire rate
                 nextFireTime = Time.time + fireRate;
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            // Cycle through the materials in the array in order
-            currentMaterialIndex = (currentMaterialIndex + 1) % playerColorMat.Length;
-            Material nextMaterial = playerColorMat[currentMaterialIndex];
-
-            // Assign the next material to the player's renderer
-            playerRenderer.material = nextMaterial;
         }
     }
     private void OnCollisionEnter(Collision collision)

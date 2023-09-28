@@ -5389,7 +5389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rangeValue: 16.3
   attackPoint: {fileID: 691178039}
-  bullet: {fileID: 8076288721221389118, guid: b1ae7fa9706f71047945464906906793, type: 3}
+  bullet: {fileID: 4707348771636254262, guid: f1048bd3ab8e83146a100874ff6d0528, type: 3}
   fireRate: 1
   rotationSpeed: 0.5
   gameOverScreen: {fileID: 7064202216025075446}

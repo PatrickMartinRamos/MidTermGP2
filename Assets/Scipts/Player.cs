@@ -21,7 +21,9 @@ public class Player : MonoBehaviour
     public GameObject gameOverScreen; //get the gameOver screen 
 
     private UIscript uiscript;
+    private bool canFire = true;
 
+    public Animator animator;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,9 +80,17 @@ public class Player : MonoBehaviour
                 Instantiate(bullet, attackPoint.position, attackPoint.rotation);
                 // Set the next allowed fire time based on the fire rate
                 nextFireTime = Time.time + fireRate;
+                animator.SetBool("ShootArrow", true);
+
+            }
+            else
+            {
+                animator.SetBool("ShootArrow",false);
             }
         }
     }
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))

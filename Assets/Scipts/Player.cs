@@ -20,10 +20,12 @@ public class Player : MonoBehaviour
     private enemySpawner spawner; //get the enemySpawner Script
     public GameObject gameOverScreen; //get the gameOver screen 
 
-    private UIscript uiscript;
-    private bool canFire = true;
+    public Material[] playerColor;
+    private int currentMaterialIndex = 0;
 
-    public Animator animator;
+    private UIscript uiscript;
+    //private bool canFire = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,10 +67,8 @@ public class Player : MonoBehaviour
 
             // Calculate the direction to the nearest enemy
             Vector3 lookDirection = enemyPosition - transform.position;
-
             // Calculate the rotation towards the nearest enemy
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
-
             transform.DORotate(targetRotation.eulerAngles, rotationSpeed);
         }
 
@@ -77,16 +77,25 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
+                //create a variable to store the material value of the player
+                Material playerMaterial = GetComponent<Renderer>().material;
+
+                //create a variable to store the material value of the bullet
+                Renderer bulletRenderer = bullet.GetComponent<Renderer>();
+                //make the bullet the same with the player material
+                bulletRenderer.material = playerMaterial;
                 Instantiate(bullet, attackPoint.position, attackPoint.rotation);
                 // Set the next allowed fire time based on the fire rate
                 nextFireTime = Time.time + fireRate;
-                animator.SetBool("ShootArrow", true);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            // Increment the current material index or wrap around if it reaches the end of the array.
+            currentMaterialIndex = (currentMaterialIndex + 1) % playerColor.Length;
 
-            }
-            else
-            {
-                animator.SetBool("ShootArrow",false);
-            }
+            // Change the player's material to the new one.
+            GetComponent<Renderer>().material = playerColor[currentMaterialIndex];
         }
     }
 

@@ -27,17 +27,37 @@ public class bulletScript : MonoBehaviour
 
     public void OnCollisionEnter(Collision collision)
     {
-        //if the bullet collide with an object tag "Enemy"
+        // If the bullet collides with an object tagged "Enemy".
         if (collision.gameObject.CompareTag("Enemy"))
         {
-                Destroy(collision.gameObject);
+            // Get the material of the enemy.
+            Renderer enemyRenderer = collision.gameObject.GetComponent<Renderer>();
+            if (enemyRenderer != null)
+            {
+                // Get the material of the bullet dynamically.
+                Renderer bulletRenderer = GetComponent<Renderer>();
 
-                // Destroy the bullet
+                // Compare the colors of the materials.
+                if (enemyRenderer.material.color == bulletRenderer.material.color)
+                {
+                    // Destroy both the enemy and the bullet.
+                    Destroy(collision.gameObject);
+                    Destroy(gameObject);
+
+                    // Call the scoreManager script and call the function add score.
+                    scoreManager.AddScore(2);
+                }
+                else
+                {
+                    // Destroy only the bullet.
+                    Destroy(gameObject);
+                }
+            }
+            else
+            {
+                // If the enemy doesn't have a Renderer component, destroy only the bullet.
                 Destroy(gameObject);
-
-                //call the scoreManager script and call the function add score
-                scoreManager.AddScore(2);         
-             
+            }
         }
     }
     // when the bullet is not seen in the camera destroy it

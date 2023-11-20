@@ -772,7 +772,8 @@ MonoBehaviour:
   - {fileID: 1447136464}
   enemyPrefab: {fileID: 871148892128522191, guid: a6170cde39354b54798e253542a5f464,
     type: 3}
-  spawnInterval: 2
+  initialSpawnInterval: 2
+  minSpawnInterval: 0.2
 --- !u!1 &544344756
 GameObject:
   m_ObjectHideFlags: 0
@@ -925,7 +926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &605606902
 RectTransform:
   m_ObjectHideFlags: 0

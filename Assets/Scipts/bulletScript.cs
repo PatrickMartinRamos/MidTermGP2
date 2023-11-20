@@ -34,7 +34,7 @@ public class bulletScript : MonoBehaviour
             Renderer enemyRenderer = collision.gameObject.GetComponent<Renderer>();
             if (enemyRenderer != null)
             {
-                // Get the material of the bullet dynamically.
+                // Get the material of the bullet
                 Renderer bulletRenderer = GetComponent<Renderer>();
 
                 // Compare the colors of the materials.
